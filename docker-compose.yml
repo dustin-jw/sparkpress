@@ -10,6 +10,8 @@ services:
       - .env
     volumes:
       - wordpress:/var/www/html
+      - ./src/themes/sparkpress:/var/www/html/wp-content/themes/sparkpress
+      - ./src/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress
   db:
     image: mysql:8.1
     restart: always
