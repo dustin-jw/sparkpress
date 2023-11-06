@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    image: mysql:8.1
+    restart: always
+    env_file:
+      - .env
+    volumes:
+    - db:/var/lib/mysql
+volumes:
+  wordpress:
+  db:
