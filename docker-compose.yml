@@ -2,7 +2,8 @@ version: '3.8'
 
 services:
   wordpress:
-    image: wordpress
+    image: wordpress:6.4-php8.1-apache
+    container_name: sparkpress_web
     restart: always
     ports:
       - 8080:80
@@ -14,6 +15,7 @@ services:
       - ./src/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress
   db:
     image: mysql:8.1
+    container_name: sparkpress_db
     restart: always
     env_file:
       - .env
