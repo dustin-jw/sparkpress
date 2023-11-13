@@ -20,6 +20,7 @@ services:
       - ./composer.lock:/var/www/html/composer.lock
       - ./phpcs-rules-standard.xml:/var/www/html/phpcs-rules-standard.xml
       - ./wp-config.php:/var/www/html/wp-config.php
+      - ./uploads/:/var/www/html/wp-content/uploads
   db:
     image: mysql:8.1
     container_name: sparkpress_db
