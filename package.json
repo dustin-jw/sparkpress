@@ -18,5 +18,10 @@
     "serve:dev": "docker compose up || docker compose down",
     "php:run": "./scripts/run.sh",
     "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n"
+  },
+  "devDependencies": {
+    "check-node-version": "^4.2.1",
+    "chokidar-cli": "^3.0.0",
+    "npm-run-all": "^4.1.5"
   }
 }
