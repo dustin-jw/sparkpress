@@ -1,18 +1,25 @@
 version: '3.8'
 
 services:
-  wordpress:
-    image: wordpress:6.4-php8.1-apache
+  web:
+    build:
+      context: .
+      target: dev
     container_name: sparkpress_web
     restart: always
     ports:
       - 8080:80
-    env_file:
-      - .env
+    depends_on:
+      - db
     volumes:
-      - wordpress:/var/www/html
-      - ./src/themes/sparkpress:/var/www/html/wp-content/themes/sparkpress
-      - ./src/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress
+      - ./dist/themes/sparkpress:/var/www/html/wp-content/themes/sparkpress
+      - ./dist/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress
+      - ./src:/var/www/html/src
+      - ./.env:/var/www/html/.env
+      - ./composer.json:/var/www/html/composer.json
+      - ./composer.lock:/var/www/html/composer.lock
+      - ./phpcs-rules-standard.xml:/var/www/html/phpcs-rules-standard.xml
+      - ./wp-config.php:/var/www/html/wp-config.php
   db:
     image: mysql:8.1
     container_name: sparkpress_db
@@ -22,5 +29,4 @@ services:
     volumes:
     - db:/var/lib/mysql
 volumes:
-  wordpress:
   db:

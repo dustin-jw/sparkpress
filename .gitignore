@@ -1,1 +1,7 @@
+.vscode
+
 .env
+
+/vendor/
+
+dist

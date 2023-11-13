@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Standard">
+	<rule ref="WordPress">
+		<exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed" />
+		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag" />
+		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
+		<exclude name="WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
+		<exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
+		<exclude name="Squiz.Commenting.FileComment.SpacingAfterComment" />
+		<!-- exclude other rules as you wish -->
+	</rule>
+</ruleset>
