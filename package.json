@@ -21,6 +21,7 @@
     "copy": "run-p copy:*",
     "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n",
     "lint": "run-s lint:*",
+    "map-vendor-files": "mkdir -p vendor && docker compose cp web:/var/www/html/vendor .",
     "node-version": "check-node-version --package",
     "php:run": "./scripts/run.sh",
     "prestart": "run-s node-version clean copy",
