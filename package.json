@@ -1,0 +1,22 @@
+{
+  "name": "sparkpress-block",
+  "version": "1.0.0",
+  "description": "Starter template for developing WordPress themes and plugins.",
+  "main": "index.js",
+  "author": "Sparkbox",
+  "license": "ISC",
+  "engines": {
+    "node": ">=20",
+    "npm": ">=10"
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 10 versions",
+    "Firefox ESR"
+  ],
+  "scripts": {
+    "serve:dev": "docker compose up || docker compose down",
+    "php:run": "./scripts/run.sh",
+    "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n"
+  }
+}
