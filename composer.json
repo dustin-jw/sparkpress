@@ -2,13 +2,20 @@
     "name": "sparkbox/sparkpress-block",
     "type": "library",
     "description": "Starter template for developing WordPress themes and plugins.",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://wpackagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true
+        }
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
         "wp-coding-standards/wpcs": "^3.0"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
     }
 }
