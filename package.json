@@ -15,9 +15,20 @@
     "Firefox ESR"
   ],
   "scripts": {
-    "serve:dev": "docker compose up || docker compose down",
+    "clean": "rm -rf dist",
+    "copy:plugins": "mkdir -p ./dist/plugins && cp -r ./src/plugins/ ./dist/plugins",
+    "copy:themes": "mkdir -p ./dist/themes && cp -r ./src/themes/ ./dist/themes",
+    "copy": "run-p copy:*",
+    "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n",
+    "lint": "run-s lint:*",
+    "node-version": "check-node-version --package",
     "php:run": "./scripts/run.sh",
-    "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n"
+    "prestart": "run-s node-version clean copy",
+    "serve:dev": "docker compose up || docker compose down",
+    "start": "run-p serve:dev watch",
+    "watch:plugins": "chokidar \"src/plugins/**/*\" -c \"npm run copy:plugins\"",
+    "watch:themes": "chokidar \"src/themes/**/*\" -c \"npm run copy:themes\"",
+    "watch": "run-p watch:*"
   },
   "devDependencies": {
     "check-node-version": "^4.2.1",
