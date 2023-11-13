@@ -15,10 +15,13 @@
     "Firefox ESR"
   ],
   "scripts": {
+    "backup:db": "BACKUP=true ./scripts/export-db.sh",
     "clean": "rm -rf dist",
     "copy:plugins": "mkdir -p ./dist/plugins && cp -r ./src/plugins/ ./dist/plugins",
     "copy:themes": "mkdir -p ./dist/themes && cp -r ./src/themes/ ./dist/themes",
     "copy": "run-p copy:*",
+    "export:db": "./scripts/export-db.sh",
+    "import:db": "./scripts/import-db.sh",
     "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n",
     "lint": "run-s lint:*",
     "map-vendor-files": "mkdir -p vendor && docker compose cp web:/var/www/html/vendor .",

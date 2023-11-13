@@ -4,7 +4,8 @@ node_modules
 
 .env
 
-/vendor/
-/uploads/
+sync
+vendor
+uploads
 
 dist
