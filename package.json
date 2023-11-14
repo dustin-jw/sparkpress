@@ -39,6 +39,8 @@
     "node-version": "check-node-version --package",
     "php:run": "./scripts/run.sh",
     "prebuild": "run-s node-version clean copy",
+    "preimport:db": "npm run backup:db",
+    "preimport:uploads": "npm run backup:uploads",
     "prestart": "run-s node-version clean copy",
     "sass:build": "sass --no-source-map --style=compressed src/scss:dist",
     "sass:dev": "sass --watch --embed-source-map src/scss:dist",
