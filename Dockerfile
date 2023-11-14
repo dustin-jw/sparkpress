@@ -1,7 +1,5 @@
 FROM php:8.1-apache-buster as dev
 
-# LABEL org.opencontainers.image.source=https://github.com/sparkbox/sparkpress-wordpress-starter
-
 ENV WP_VERSION=6.4.1
 
 # persistent dependencies
@@ -108,3 +106,4 @@ FROM dev as prod
 COPY dist/themes /var/www/html/wp-content/themes
 COPY dist/plugins /var/www/html/wp-content/plugins
 COPY wp-config.php /var/www/html/wp-config.php
+COPY .htaccess /var/www/html/.htaccess
