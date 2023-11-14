@@ -46,11 +46,15 @@
     "sass:dev": "sass --watch --embed-source-map src/scss:dist",
     "serve:dev": "docker compose up || docker compose down",
     "start": "run-p serve:dev sass:dev js:dev watch",
+    "test:ci": "vitest --run --coverage",
+    "test:watch": "vitest",
+    "test": "vitest --run",
     "watch:plugins": "chokidar \"src/plugins/**/*\" -c \"npm run copy:plugins\"",
     "watch:themes": "chokidar \"src/themes/**/*\" -c \"npm run copy:themes\"",
     "watch": "run-p watch:*"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^0.34.6",
     "check-node-version": "^4.2.1",
     "chokidar-cli": "^3.0.0",
     "dotenv": "^16.3.1",
