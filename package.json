@@ -30,6 +30,7 @@
     "import:uploads": "./scripts/import-uploads.sh",
     "import": "run-s import:*",
     "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n",
+    "lint:scss": "stylelint \"src/**/*.scss\" --color --formatter verbose",
     "lint": "run-s lint:*",
     "map-vendor-files": "mkdir -p vendor && docker compose cp web:/var/www/html/vendor .",
     "node-version": "check-node-version --package",
