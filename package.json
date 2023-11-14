@@ -34,6 +34,8 @@
     "node-version": "check-node-version --package",
     "php:run": "./scripts/run.sh",
     "prestart": "run-s node-version clean copy",
+    "sass:build": "sass --no-source-map --style=compressed src/scss:dist",
+    "sass:dev": "sass --watch --embed-source-map src/scss:dist",
     "serve:dev": "docker compose up || docker compose down",
     "start": "run-p serve:dev watch",
     "watch:plugins": "chokidar \"src/plugins/**/*\" -c \"npm run copy:plugins\"",
