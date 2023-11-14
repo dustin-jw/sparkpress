@@ -16,6 +16,7 @@ services:
       - ./dist/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress
       - ./src:/var/www/html/src
       - ./.env:/var/www/html/.env
+      - ./.htaccess:/var/www/html/.htaccess
       - ./composer.json:/var/www/html/composer.json
       - ./composer.lock:/var/www/html/composer.lock
       - ./phpcs-rules-standard.xml:/var/www/html/phpcs-rules-standard.xml
