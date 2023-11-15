@@ -1,0 +1,76 @@
+name: Deploy to Pantheon
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ vars.DEPLOY_TO_PANTHEON }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Install PHP dependencies with Composer
+        uses: php-actions/composer@v6
+        with:
+          php_version: '8.1'
+          version: 2.x
+
+      - name: Build theme
+        run: npm run build
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.PANTHEON_ID_RSA }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Add SSH Key
+        run: |
+          eval `ssh-agent`
+          ssh-add ~/.ssh/id_rsa
+
+      - name: Checkout Pantheon remote
+        run: |
+          git config --global user.email "${{ secrets.PRODUCTION_USER_EMAIL }}"
+          git config --global user.name "${{ secrets.PRODUCTION_USER_NAME }}"
+          git remote add pantheon ${{ secrets.PRODUCTION_REPO }}
+          git fetch pantheon master
+          git worktree add --track -b prod prod pantheon/master
+
+      - name: Copy build artifacts
+        run: |
+          # delete all vendor and plugin files, since they'll be replaced by our updated files
+          rm -rf prod/vendor prod/wp-content/plugins
+          # delete each custom theme that will be replaced by our updated files
+          rm -rf prod/wp-content/themes/sparkpress
+          # copy vendor files
+          cp -r vendor prod
+          # copy our custom themes
+          cp -r dist/themes/ prod/wp-content/themes
+          # create plugins directory if it doesn't exist
+          mkdir -p wp-content/plugins
+          # copy third-party plugins
+          cp -r wp-content/plugins/ prod/wp-content/plugins
+          # copy our custom plugins
+          cp -r dist/plugins/ prod/wp-content/plugins
+
+      - name: Deploy to Pantheon
+        run: |
+          cd prod
+          git status | grep "nothing to commit" && exit 0 || git status
+          git add .
+          git commit -m "Prod release"
+          git push pantheon HEAD:master
