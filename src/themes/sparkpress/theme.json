@@ -162,6 +162,7 @@
 		"useRootPaddingAwareAlignments": true
 	},
 	"styles": {
+		"css": ".clearfix { clear: both }",
 		"blocks": {
 			"core/navigation": {
 				"elements": {
