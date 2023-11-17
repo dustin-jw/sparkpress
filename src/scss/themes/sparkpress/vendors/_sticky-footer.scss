@@ -1,0 +1,9 @@
+.wp-site-blocks {
+  box-sizing: border-box;
+	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
+}
+
+footer.wp-block-template-part {
+	position: sticky;
+	top: 100%;
+}
