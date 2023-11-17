@@ -73,6 +73,7 @@ RUN find /var/www/ -type f -exec chmod 644 {} \;
 # make the linters executable so we can run them from containers
 RUN chmod +x vendor/bin/phpcs
 RUN chmod +x vendor/bin/phpcbf
+RUN chmod +x vendor/bin/twigcs
 
 FROM dev as prod
 
