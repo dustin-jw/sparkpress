@@ -17,3 +17,11 @@ function sparkpress_theme_styles() {
 	wp_enqueue_style( 'sparkpress-theme', get_template_directory_uri() . '/sparkpress-theme.css', array(), _S_VERSION );
 }
 add_action( 'wp_enqueue_scripts', 'sparkpress_theme_styles' );
+
+/**
+ * Enqueue scripts for the theme.
+ */
+function sparkpress_theme_scripts() {
+	wp_enqueue_script( 'sparkpress-theme', get_template_directory_uri() . '/index.js', array(), _S_VERSION, true );
+}
+add_action( 'wp_enqueue_scripts', 'sparkpress_theme_scripts' );
