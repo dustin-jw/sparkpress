@@ -11,3 +11,4 @@ vendor
 uploads
 
 dist
+src/plugins/**/build
