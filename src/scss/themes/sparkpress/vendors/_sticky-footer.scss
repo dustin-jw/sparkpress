@@ -1,5 +1,6 @@
 .wp-site-blocks {
   box-sizing: border-box;
+	/* stylelint-disable-next-line custom-property-pattern */
 	min-height: calc(100vh - var(--wp-admin--admin-bar--height, 0px));
 }
 
