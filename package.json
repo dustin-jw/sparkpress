@@ -34,6 +34,7 @@
     "lint:js": "eslint src",
     "lint:php": "./scripts/run.sh vendor/bin/phpcs --standard=phpcs-rules-standard.xml --extensions=php src -s -n",
     "lint:scss": "stylelint \"src/**/*.scss\" --color --formatter verbose",
+    "lint:twig": "./scripts/run.sh vendor/bin/twigcs src",
     "lint": "run-s lint:*",
     "map-vendor-files": "mkdir -p vendor && docker compose cp web:/var/www/html/vendor .",
     "node-version": "check-node-version --package",
