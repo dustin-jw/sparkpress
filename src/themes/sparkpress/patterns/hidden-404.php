@@ -4,21 +4,11 @@
  * Slug: sparkpress/hidden-404
  * Inserter: no
  */
-?>
-<!-- wp:heading {"level":1,"align":"wide"} -->
-<h1 class="alignwide">
-	<?php echo esc_html_x( '404', 'Error code for a webpage that is not found.', 'sparkpress' ); ?>
-</h1>
-<!-- /wp:heading -->
 
-<!-- wp:group {"align":"wide","layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide">
-	<!-- wp:paragraph -->
-	<p>
-		<?php echo esc_html_x( 'This page could not be found.', 'Message to convey that a webpage could not be found', 'sparkpress' ); ?>
-	</p>
-	<!-- /wp:paragraph -->
+$context = Timber::context();
+$context['heading'] = esc_html_x( '404', 'Error code for a webpage that is not found.', 'sparkpress' );
+$context['message'] = esc_html_x( 'This page could not be found.', 'Message to convey that a webpage could not be found', 'sparkpress' );
+$context['search_label'] = esc_attr_x( 'Search', 'label', 'sparkpress' );
+$context['search_placeholder'] = esc_attr_x( 'Search...', 'placeholder for search field', 'sparkpress' );
 
-	<!-- wp:search {"label":"<?php echo esc_html_x( 'Search', 'label', 'sparkpress' ); ?>","placeholder":"<?php echo esc_attr_x( 'Search...', 'placeholder for search field', 'sparkpress' ); ?>","showLabel":false,"width":100,"widthUnit":"%","buttonText":"<?php esc_attr_e( 'Search', 'sparkpress' ); ?>","buttonUseIcon":true,"align":"center"} /-->
-</div>
-<!-- /wp:group -->
+Timber::render( 'patterns/404.twig', $context );
