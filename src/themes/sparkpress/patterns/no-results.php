@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Hidden No Results Content
- * Slug: sparkpress/hidden-no-results-content
+ * Title: No Results Content
+ * Slug: sparkpress/no-results
  * Inserter: no
  */
 

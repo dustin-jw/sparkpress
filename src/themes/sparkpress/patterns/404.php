@@ -1,7 +1,7 @@
 <?php
 /**
- * Title: Hidden 404
- * Slug: sparkpress/hidden-404
+ * Title: 404
+ * Slug: sparkpress/404
  * Inserter: no
  */
 

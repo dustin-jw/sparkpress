@@ -1,7 +1,7 @@
 <?php
 /**
  * Title: Default Footer
- * Slug: sparkpress/footer-default
+ * Slug: sparkpress/footer
  * Categories: footer
  * Block Types: core/template-part/footer
  */
