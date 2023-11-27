@@ -9,6 +9,7 @@
     "node": ">=20",
     "npm": ">=10"
   },
+  "type": "module",
   "browserslist": [
     ">0.5%",
     "last 10 versions",
@@ -26,6 +27,7 @@
     "export:db": "./scripts/export-db.sh",
     "export:uploads": "./scripts/export-uploads.sh",
     "export": "run-s \"export:* {1}\" --",
+    "generate:block-theme": "node ./generators/block-theme.js",
     "import:db": "./scripts/import-db.sh",
     "import:uploads": "./scripts/import-uploads.sh",
     "import": "run-s import:*",

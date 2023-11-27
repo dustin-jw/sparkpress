@@ -1,4 +1,4 @@
-{
+export const getThemeJSON = ({ supportComments, supportPostMeta }) => `{
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"version": 2,
 	"settings": {
@@ -86,7 +86,7 @@
 			"fluid": true,
 			"fontFamilies": [
 				{
-					"fontFamily": "-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\"Helvetica Neue\",sans-serif",
+					"fontFamily": "-apple-system,BlinkMacSystemFont,\\"Segoe UI\\",Roboto,Oxygen-Sans,Ubuntu,Cantarell,\\"Helvetica Neue\\",sans-serif",
 					"name": "System Font",
 					"slug": "system-font"
 				}
@@ -591,16 +591,24 @@
 			"area": "footer",
 			"name": "footer",
 			"title": "Footer"
-		},
+		}${
+			supportComments
+				? `,
 		{
 			"area": "uncategorized",
 			"name": "comments",
 			"title": "Comments"
-		},
+		}`
+				: ''
+		}${
+			supportPostMeta
+				? `,
 		{
 			"area": "uncategorized",
 			"name": "post-meta",
 			"title": "Post Meta"
+		}`
+				: ''
 		},
 		{
 			"area": "uncategorized",
@@ -609,3 +617,4 @@
 		}
 	]
 }
+`;

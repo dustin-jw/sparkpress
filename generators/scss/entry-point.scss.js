@@ -1,4 +1,4 @@
-//    Introduction
+export const getSCSSEntryPoint = () => `//    Introduction
 //    Welcome to the CSS file! This is subjectively the most exciting code
 //    of the website. Here we bring together the visual style of the website.
 
@@ -74,3 +74,4 @@
 // 8. Utilities
 //    Utilities and helper classes with ability to override anything
 //    which goes before in the triangle, eg. hide helper class
+`;

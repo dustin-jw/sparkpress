@@ -1,0 +1,10 @@
+export const getNoResultsTwigTemplate = () => `<!-- wp:group {"align":"wide"} -->
+<div class="wp-block-group alignwide">
+	<!-- wp:paragraph -->
+	<p>{{ message }}</p>
+	<!-- /wp:paragraph -->
+
+	<!-- wp:search {"label":"{{ search_label }}","placeholder":"{{ search_placeholder }}","showLabel":false,"buttonText":"{{ search_label }}","buttonUseIcon":true} /-->
+</div>
+<!-- /wp:group -->
+`;
