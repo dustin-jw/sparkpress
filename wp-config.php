@@ -94,8 +94,10 @@ define( 'WP_DEBUG', ! ! $_SERVER['WORDPRESS_DEBUG'] ?? '' );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-/** Set the default theme to use. */
-define( 'WP_DEFAULT_THEME', $_SERVER['WORDPRESS_DEFAULT_THEME'] ?? 'sparkpress' );
+if ( isset( $_SERVER['WORDPRESS_DEFAULT_THEME'] ) ) {
+	/** Set the default theme to use. */
+	define( 'WP_DEFAULT_THEME', $_SERVER['WORDPRESS_DEFAULT_THEME'] );
+}
 
 // If we're behind a proxy server and using HTTPS, we need to alert WordPress of that fact
 // see also https://wordpress.org/support/article/administration-over-ssl/#using-a-reverse-proxy

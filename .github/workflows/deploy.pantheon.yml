@@ -55,7 +55,7 @@ jobs:
           # delete all vendor and plugin files, since they'll be replaced by our updated files
           rm -rf prod/vendor prod/wp-content/plugins
           # delete each custom theme that will be replaced by our updated files
-          rm -rf prod/wp-content/themes/sparkpress
+          # rm -rf prod/wp-content/themes/your-theme-name
           # copy vendor files
           cp -r vendor prod
           # copy our custom themes

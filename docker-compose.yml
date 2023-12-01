@@ -4,15 +4,13 @@ services:
     build:
       context: .
       target: dev
-    container_name: sparkpress_web
+    container_name: wordpress_web
     restart: always
     ports:
       - '8080:80'
     depends_on:
       - db
     volumes:
-      - './dist/themes/sparkpress:/var/www/html/wp-content/themes/sparkpress'
-      - './dist/plugins/sparkpress:/var/www/html/wp-content/plugins/sparkpress'
       - './src:/var/www/html/src'
       - './.env:/var/www/html/.env'
       - './.htaccess:/var/www/html/.htaccess'
@@ -23,11 +21,11 @@ services:
       - './uploads/:/var/www/html/wp-content/uploads'
   db:
     image: 'mysql:8.1'
-    container_name: sparkpress_db
+    container_name: wordpress_db
     restart: always
     env_file:
       - .env
     volumes:
-      - 'db:/var/lib/mysql'
+      - 'db_data:/var/lib/mysql'
 volumes:
-  db: null
+  db_data: {}
