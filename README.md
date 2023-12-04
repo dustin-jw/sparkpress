@@ -18,7 +18,7 @@ Rather than providing an example theme or plugin that you can modify to make you
 1. Visit `http://localhost:8080` and follow the WordPress installation steps
 1. Log in with your newly created admin account, and you should have a functioning WordPress site
 
-If you are working on a plugin and would rather use a theme that comes with WordPress, you can delete the line in `Dockerfile` that includes `rm -rf /tmp/wordpress/wp-content/themes/*`. This will let you use a default theme like `twentytwentyfour` if you want. You also won't need to generate a theme if you take this approach.
+If you are working on a plugin and would rather use a theme that comes with WordPress, you can delete the line in `Dockerfile` that includes `rm -rf /tmp/wordpress/wp-content/themes/*`. This will let you use a default theme like `twentytwentyfour` if you want. You also won't need to generate a theme if you take this approach. Note: any time you change `Dockerfile`, you should run `docker compose build` to make sure your container picks up the changes.
 
 ## Customizing the Project
 
@@ -39,8 +39,52 @@ At a high level, this is how the project is organized by folder:
 - `src`: anything that directly contributes to WordPress themes or plugins goes in here
 - Everything else: mostly configuration files for the various tools involved for building/linting/testing
 
+### SCSS and JS
+
 Within the `src` folder, you may notice a recurring pattern. `src` contains a `plugins` folder and a `theme` folder, and so does `src/js` and `src/scss`. The purpose of this structure is to establish a convention that makes it easy for both developers and build tools to know which JavaScript and SCSS files are used for which plugins or themes.
 
 For example, if you create a theme called "Flamingo", the files should be organized such that the SCSS, JS, and theme files live in `src/scss/themes/flamingo`, `src/js/themes/flamingo`, and `src/themes/flamingo`, respectively. `npm run generate:block-theme` will take care of this for you if you choose to scaffold SCSS and JS.
 
 The build tools for SCSS and JS use glob syntax to find any entry point files and build them to a corresponding path in the `dist` folder when building your themes or plugins. Because of this flexibility, it's best to put helper files in a directory outside of `src/js/themes` or `src/js/plugins`, so they don't get picked up as entry points unnecessarily.
+
+### Volume Mapping
+
+During the build/development process, the `src/plugins` and `src/themes` folders are copied into a `dist` folder. To make those plugins and themes available in Docker, they must be included in the `volumes` list in `docker-compose.yml`, mapping to the `/var/www/html/wp-content/plugins` and `/var/www/html/wp-content/themes` folders individually.
+
+For example, the aforementioned "Flamingo" theme would need to be mapped like so:
+
+```yml
+version: '3.8'
+services:
+  web:
+    volumes:
+      - './dist/themes/flamingo:/var/www/html/wp-content/themes/flamingo'
+```
+
+The plugins and themes must be mapped individually like this to avoid wiping out any third-party plugins or themes included via Composer. If the volume mapping was changed to `./dist/themes:/var/www/html/wp-content/themes`, only the themes from the `dist` folder would end up in the container. That might be fine, depending on whether you're using third-party or default WordPress themes, but it's probably best to avoid the issue altogether.
+
+## Generators
+
+To simplify adding functionality, this project uses generators to handle creating new files that ideally match WordPress best practices. The goal is to simplify and standardize as much as possible to take the guesswork out of common tasks, which will allow for more time spent on building out project-specific functionality.
+
+### Block Theme
+
+The generator for block themes will prompt you for details about your theme that it will use to scaffold a new, mostly unopinionated block theme with minimal styling. If you accept all the defaults, it should be fully featured enough to pass the tests from the [Theme Check plugin](https://wordpress.org/plugins/theme-check/). If you opt out of certain features, like comments or certain page templates, you may need to fill in some gaps or make it clear that your theme has limited support for core features.
+
+```sh
+npm run generate:block-theme
+```
+
+You should check each of the files that are created to make sure they accurately reflect your theme, including the WordPress and PHP versions that the theme is compatible with. You will definitely need to change the `screenshot.png` file that gets created, unless for some reason you keep the styles exactly the same for your new theme. It would be best to do this once your theme is mostly finalized, and the ideal dimensions are 1600px by 900px.
+
+For best practices for working with block themes, read the [Theme Handbook](https://developer.wordpress.org/themes/), and for examples of official block themes from WordPress, see the [twentytwentythree](https://core.trac.wordpress.org/browser/trunk/src/wp-content/themes/twentytwentythree?order=name) and [twentytwentyfour](https://core.trac.wordpress.org/browser/trunk/src/wp-content/themes/twentytwentyfour) themes.
+
+### Creating a New Generator
+
+Generators are written as Node.js scripts that use [`prompts`](https://github.com/terkelg/prompts) to handle gathering input from users for anything that is configurable about the code being generated. The answers to those questions should be used to customize the templates for files that are written.
+
+It's easiest to write a generator if you know what the end result should be. For example, the block theme generator was written after creating a block theme that covered all of the functionality that a basic block theme would need. From there, anything that was specific to the theme or might be considered optional informed the questions needed for generating a new theme.
+
+For the most part, templates use string interpolation and the `writeToFile` helper to write that string to a file with a given directoryz and name. For some special cases, a generator needs to update an existing file, like `docker-compose.yml`, but most of the time, a generator should write new files.
+
+If you have an idea for a generator that would be helpful, you can create a new issue or submit a pull request to add one.
