@@ -88,3 +88,48 @@ It's easiest to write a generator if you know what the end result should be. For
 For the most part, templates use string interpolation and the `writeToFile` helper to write that string to a file with a given directoryz and name. For some special cases, a generator needs to update an existing file, like `docker-compose.yml`, but most of the time, a generator should write new files.
 
 If you have an idea for a generator that would be helpful, you can create a new issue or submit a pull request to add one.
+
+## Deployment
+
+There are GitHub Action workflows for deploying to Pantheon or for creating a Docker image that gets stored in the GitHub Container Registry. By default, these workflows will not run unless you opt-in by setting some variables and/or secrets in GitHub.
+
+### Docker Deployment
+
+The `deploy.docker.yml` workflow handles creating a Docker image and pushing it to the GitHub Container Registry, tagging each release as `latest`. To opt in to this workflow, go to Settings > Secrets and variables > Actions, then choose the Variables tab. Add a new repository variable called `DEPLOY_WITH_DOCKER` with a value of "true" to enable the Docker deployment workflow.
+
+You will also need to go to Settings > Actions > General to give the `GITHUB_TOKEN` read and write permissions so it can be used to push to the GitHub Container Registry.
+
+Once enabled, the next push to `main` should trigger the job to run and create the package.
+
+### Pantheon Deployment
+
+If you're using Pantheon for hosting your WordPress site, you'll need to go through some additional steps to enable automatic deployment to Pantheon.
+
+#### Setting up Pantheon
+
+Pantheon maintains its own git remote, which is separate from this repo. The deployment workflow pulls that remote, applies our changes to it, then commits and pushes the updates to the Pantheon remote. Before enabling the workflow, you'll need to do the following:
+
+1. Enable autoloading vendor dependencies
+    1. In the Pantheon dashboard for your site, set the Development Mode to Git instead of SFTP
+    1. Clone the Pantheon repo
+    1. At the top of the Pantheon repo's `wp-config.php` file, just below the opening `<?php` line, add this line: `require __DIR__ . '/vendor/autoload.php'`
+    1. Commit the change and push to Pantheon's `master branch`
+1. Generate an SSH key
+    1. Follow the steps in [this guide](https://docs.pantheon.io/ssh-keys#generate-an-ssh-key) to generate an SSH key
+    1. Run `ssh-add ~/.ssh/id_rsa`, replacing `id_rsa` with the name of the key you generated
+    1. SSH into the Pantheon server with a command like `ssh ssh://<server-address>.drush.in:2222` (you should be able to find the connection info in Pantheon)
+    1. When prompted to accept the server's fingerprint, type `yes` and press enter
+    1. Check your `~/.ssh/known_hosts` file for a new entry, you'll need this for GitHub secrets in the next step
+1. Set GitHub secrets (Settings > Secrets and variables > Actions, Secrets tab)
+    1. `PANTHEON_ID_RSA`: the private SSH key generated in the previous step
+    1. `KNOWN_HOSTS`: the new entry in `~/.ssh/known_hosts` (copy the whole line)
+    1. `PRODUCTION_USER_EMAIL`: the email address used for Pantheon commit messages
+    1. `PRODUCTION_USER_NAME`: the name of the user used for Pantheon commit messages
+    1. `PRODUCTION_REPO`: the URL of the Pantheon git remote (you should be able to find this in Pantheon with a URL that starts with `ssh://` and ends with `.git`)
+1. Enable the workflow by setting `DEPLOY_TO_PANTHEON` to "true" in Settings > Secrets and variables > Actions, Variables tab
+
+### Releases
+
+This project includes a workflow for Release Please, which you can use to generate release notes and tag versions based on commits to `main`. When enabled, this will allow a bot to create PRs that bump version numbers and generate a changelog based on commit messages (following conventional commits).
+
+To enable Release Please, go to Settings > Secrets and variables > Actions, then go to the Variables tab and add a new variable called `TAG_RELEASES` with a value of "true". You will also need to go to Settings > Actions > General and check the box to allow GitHub Actions to create and approve pull requests.
