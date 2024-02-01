@@ -59,13 +59,13 @@
     "watch": "run-p watch:*"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^1.1.1",
-    "@wordpress/eslint-plugin": "^17.5.0",
+    "@vitest/coverage-v8": "^1.2.2",
+    "@wordpress/eslint-plugin": "^17.7.0",
     "@wordpress/scripts": "^26.19.0",
     "check-node-version": "^4.2.1",
     "chokidar-cli": "^3.0.0",
-    "dotenv": "^16.3.1",
-    "esbuild": "^0.19.11",
+    "dotenv": "^16.4.1",
+    "esbuild": "^0.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.33.2",
@@ -73,10 +73,10 @@
     "js-yaml": "^4.1.0",
     "npm-run-all": "^4.1.5",
     "prompts": "^2.4.2",
-    "sass": "^1.69.6",
-    "stylelint": "^16.1.0",
+    "sass": "^1.70.0",
+    "stylelint": "^16.2.0",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^12.0.0",
-    "vitest": "^1.1.1"
+    "vitest": "^1.2.2"
   }
 }
