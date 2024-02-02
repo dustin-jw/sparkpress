@@ -1,6 +1,6 @@
 FROM php:8.1-apache-buster as dev
 
-ENV WP_VERSION=6.4.1
+ENV WP_VERSION=6.4.3
 
 # persistent dependencies
 RUN set -eux; \
