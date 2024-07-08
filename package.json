@@ -59,9 +59,9 @@
     "watch": "run-p watch:*"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "^1.5.3",
-    "@wordpress/eslint-plugin": "^17.13.0",
-    "@wordpress/scripts": "^27.7.0",
+    "@vitest/coverage-v8": "^2.0.0",
+    "@wordpress/eslint-plugin": "^19.2.0",
+    "@wordpress/scripts": "^28.2.0",
     "check-node-version": "^4.2.1",
     "chokidar-cli": "^3.0.0",
     "dotenv": "^16.4.5",
@@ -77,6 +77,6 @@
     "stylelint": "^16.4.0",
     "stylelint-config-standard": "^36.0.0",
     "stylelint-config-standard-scss": "^13.1.0",
-    "vitest": "^1.2.2"
+    "vitest": "^2.0.0"
   }
 }
