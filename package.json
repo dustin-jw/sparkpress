@@ -60,7 +60,7 @@
   },
   "devDependencies": {
     "@vitest/coverage-v8": "^2.0.0",
-    "@wordpress/eslint-plugin": "^19.2.0",
+    "@wordpress/eslint-plugin": "^20.1.0",
     "@wordpress/scripts": "^28.2.0",
     "check-node-version": "^4.2.1",
     "chokidar-cli": "^3.0.0",
